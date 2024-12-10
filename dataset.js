@@ -1,4 +1,4 @@
-import { CheerioCrawler, Dataset, enqueueLinks } from "crawlee";
+import { CheerioCrawler, Dataset } from "crawlee";
 
 const crawler = new CheerioCrawler({
   requestHandler: async ({ $, request, enqueueLinks }) => {
@@ -18,7 +18,7 @@ const crawler = new CheerioCrawler({
     const vendor = $("a.product-meta__vendor").text().trim();
     const price = $("span.price").contents()[2].nodeValue;
     const reviewCount = parseInt($("span.rating__caption").text(), 10);
-    const description = $("div[class*='description'] div.rte");
+    const description = $('div[class*="description"] div.rte').text().trim();
 
     // Instead of printing the results to console, we save everything to a file.
     await Dataset.pushData({
